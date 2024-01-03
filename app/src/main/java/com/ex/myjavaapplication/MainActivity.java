@@ -9,16 +9,20 @@ import java.time.temporal.ChronoUnit;
 
 public class MainActivity extends AppCompatActivity {
 
-    private LocalTime foregroundTime;
-    private LocalTime backgroundTime;
+    private LocalTime fgTimeWhenStarted;
+    private LocalTime bgTimeWhenStarted;
     private boolean wasPaused = false;
+
+    private long elapsedFgTime = 0;
+    private long elapsedBgTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        findViewById(R.id.button).setOnClickListener(v -> refreshTimer());
+        findViewById(R.id.button).setOnClickListener(v -> updateFgTimer());
         ((TextView)findViewById(R.id.textViewBg)).setText("Time spent in background:\n00:00");
+        ((TextView)findViewById(R.id.textViewFg)).setText("Time spent in foreground:\n00:00");
     }
 
     protected void onStart() {
@@ -27,19 +31,17 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onResume() {
         super.onResume();
-        foregroundTime = LocalTime.now();
-        ((TextView)findViewById(R.id.textViewFg)).setText("Time spent in foreground:\n00:00");
+        fgTimeWhenStarted = LocalTime.now();
         if (wasPaused) {
-            updateBgTime();
-
+            updateBgTimer();
+            wasPaused = false;
         }
     }
 
     protected void onPause() {
         super.onPause();
         wasPaused = true;
-        backgroundTime = LocalTime.now();
-        ((TextView)findViewById(R.id.textViewBg)).setText("Time spent in background:\n00:00");
+        bgTimeWhenStarted = LocalTime.now();
     }
 
     protected void onStop() {
@@ -50,13 +52,15 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    protected void updateBgTime() {
-        long elapsedBgTime = ChronoUnit.SECONDS.between(backgroundTime, LocalTime.now());
+    protected void updateBgTimer() {
+        elapsedBgTime += ChronoUnit.SECONDS.between(bgTimeWhenStarted, LocalTime.now());
+        bgTimeWhenStarted = LocalTime.now();
         String textViewBg = "Time spent in background:\n" + DateUtils.formatElapsedTime(elapsedBgTime);
         ((TextView)findViewById(R.id.textViewBg)).setText(textViewBg);
     }
-    protected void refreshTimer() {
-        long elapsedFgTime = ChronoUnit.SECONDS.between(foregroundTime, LocalTime.now());
+    protected void updateFgTimer() {
+        elapsedFgTime += ChronoUnit.SECONDS.between(fgTimeWhenStarted, LocalTime.now());
+        fgTimeWhenStarted = LocalTime.now();
         String textViewFg = "Time spent in foreground:\n" + DateUtils.formatElapsedTime(elapsedFgTime);
         ((TextView)findViewById(R.id.textViewFg)).setText(textViewFg);
     }
