@@ -13,6 +13,7 @@
         android:layout_marginTop="80dp"
         android:text="TextView"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,16 +31,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/img_android" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="136dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="20dp"
-        android:text="Refresh fg timer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewFg" />
+<!--    <Button-->
+<!--        android:id="@+id/button"-->
+<!--        android:layout_width="136dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:text="Refresh fg timer"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.5"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textViewFg" />-->
 
     <TextView
         android:id="@+id/textViewBg"
@@ -48,11 +49,25 @@
         android:layout_marginTop="70dp"
         android:text="TextView"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/fgChrono" />
+
+    <Chronometer
+        android:id="@+id/fgChrono"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFg" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
